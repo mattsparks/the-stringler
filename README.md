@@ -11,7 +11,7 @@ composer require thestringler/manipulator
 ## Methods
 ### append
 ```php
-Manipulator::make('Out!')->append('Freak ');
+Manipulator::make('Freak')->append(' Out!');
 // Freak Out!
 ```
 
