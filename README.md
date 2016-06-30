@@ -17,7 +17,6 @@ Manipulator::make('Out!')->append('Freak ');
 
 ### camelToSnake
 ```php
-// Convert a camel-case string to snake-case
 Manipulator::make('camelCase')->camelToSnake();
 // camel_case
 ```
@@ -118,4 +117,11 @@ Manipulator::make('  trimmed')->trimBeginning();
 ```php
 Manipulator::make('trimmed  ')->trimEnd();
 // trimmed
+```
+
+All of these methods (minus `toString`) can be chained.
+
+```php
+Manipulator::make('hello')->toUpper()->reverse();
+// OLLEH
 ```
