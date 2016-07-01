@@ -78,6 +78,44 @@ class Manipulator
     }
 
     /**
+     * HTML Entities
+     *
+     * @param  const   $flags
+     * @param  string  $encoding
+     * @param  boolean $doubleEncode
+     * @return object
+     */
+    public function htmlEntities($flags = ENT_HTML5, $encoding = 'UTF-8', $doubleEncode = true)
+    {
+        return new static(htmlentities($this->string, $flags, $encoding, $doubleEncode));
+    }
+
+    /**
+     * Decode HTML Entities
+     *
+     * @param  const  $flags
+     * @param  string $encoding
+     * @return object
+     */
+    public function htmlEntitiesDecode($flags = ENT_HTML5, $encoding = 'UTF-8')
+    {
+        return new static(html_entity_decode($this->string, $flags, $encoding));
+    }
+
+    /**
+     * HTML Special Characters
+     *
+     * @param  const   $flags
+     * @param  string  $encoding
+     * @param  boolean $doubleEncode
+     * @return object
+     */
+    public function htmlSpecialCharacters($flags = ENT_HTML5, $encoding = 'UTF-8', $doubleEncode = true)
+    {
+        return new static(htmlspecialchars($this->string, $flags, $encoding, $doubleEncode));
+    }
+
+    /**
      * Make the first letter of the string
      * lowercase.
      *
@@ -113,9 +151,20 @@ class Manipulator
      * @param  string
      * @return object
      */
-    public function remove($string)
+    public function remove($string, $caseSensitive = true)
     {
-        return new static($this->replace($string)->toString());
+        return new static($this->replace($string, '', $caseSensitive)->toString());
+    }
+
+    /**
+     * Repeat a string.
+     *
+     * @param  integer $multiplier
+     * @return object
+     */
+    public function repeat($multiplier = 1)
+    {
+        return new static(str_repeat($this->string, $multiplier));
     }
 
     /**
@@ -125,9 +174,14 @@ class Manipulator
      * @param  string $replace
      * @return object
      */
-    public function replace($find, $replace = '')
+    public function replace($find, $replace = '', $caseSensitive = true)
     {
-        return new static(str_replace($find, $replace, $this->string));
+        if ($caseSensitive) {
+            return new static(str_replace($find, $replace, $this->string));
+        } else {
+            return new static(str_ireplace($find, $replace, $this->string));
+        }
+
     }
 
     /**
@@ -244,6 +298,25 @@ class Manipulator
     public function trimEnd()
     {
         return new static(rtrim($this->string));
+    }
+
+    /**
+     * Decode URL
+     *
+     * @return object
+     */
+    public function urlDecode()
+    {
+        return new static(urldecode($this->string));
+    }
+
+    /**
+     * Encode URL
+     * @return object
+     */
+    public function urlEncode()
+    {
+        return new static(urlencode($this->string));
     }
 
 }

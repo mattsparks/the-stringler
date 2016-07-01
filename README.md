@@ -32,6 +32,24 @@ Manipulator::make('i like toast!')->capitalizeEach();
 // I Like Toast!
 ```
 
+### htmlEntities
+```php
+Manipulator::make('&')->htmlEntitiesDecode();
+// &amp;
+```
+
+### htmlEntitiesDecode
+```php
+Manipulator::make('&amp;')->htmlEntitiesDecode();
+// &
+```
+
+### htmlSpecialCharacters
+```php
+Manipulator::make('&<>')->htmlSpecialCharacters();
+// &amp;&lt;&gt;
+```
+
 ### lowercaseFirst
 ```php
 Manipulator::make('HELLO')->lowercaseFirst();
@@ -54,6 +72,12 @@ Manipulator::make('is the one.')->prepend('Neo ');
 ```php
 Manipulator::make('Dog Gone')->remove('Gone');
 // Dog
+```
+
+### repeat
+```php
+Manipulator::make('la')->repeat(3);
+// lalala
 ```
 
 ### replace
@@ -118,6 +142,19 @@ Manipulator::make('  trimmed')->trimBeginning();
 Manipulator::make('trimmed  ')->trimEnd();
 // trimmed
 ```
+
+### urlDecode
+```php
+Manipulator::make('hello%21')->urlDecode();
+// hello!
+```
+
+### urlEncode
+```php
+Manipulator::make('hello!')->urlDecode();
+// hello%21
+```
+## Chainable
 
 All of these methods (minus `toString`) can be chained.
 

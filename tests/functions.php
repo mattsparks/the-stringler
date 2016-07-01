@@ -52,6 +52,12 @@ class Functions extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Jello', $string);
     }
 
+    public function test_that_character_is_replaced_when_case_sensitive_is_false()
+    {
+        $string = Manipulator::make('Removed Hello removed')->replace('removed', 'Hello', false);
+        $this->assertEquals('Hello Hello Hello', $string);
+    }
+
     public function test_that_string_is_reversed()
     {
         $string = Manipulator::make('Hello')->reverse();
@@ -108,5 +114,40 @@ class Functions extends \PHPUnit_Framework_TestCase
     {
         $string = Manipulator::make('trimmed  ')->trimEnd();
         $this->assertEquals('trimmed', $string);
+    }
+
+    public function test_string_is_url_encoded()
+    {
+        $string = Manipulator::make('hello!')->urlEncode();
+        $this->assertEquals('hello%21', $string);
+    }
+
+    public function test_url_string_is_decoded()
+    {
+        $string = Manipulator::make('hello%21')->urlDecode();
+        $this->assertEquals('hello!', $string);
+    }
+
+    public function test_that_html_is_converted_to_their_entities()
+    {
+        $string = Manipulator::make('&')->htmlEntities();
+        $this->assertEquals('&amp;', $string);
+    }
+
+    public function test_that_html_entities_are_converted_back()
+    {
+        $string = Manipulator::make('&amp;')->htmlEntitiesDecode();
+        $this->assertEquals('&', $string);
+    }
+
+    public function test_that_string_is_converted_to_html_special_characters()
+    {
+        $string = Manipulator::make('&<>')->htmlSpecialCharacters();
+        $this->assertEquals($string, '&amp;&lt;&gt;');
+    }
+
+    public function test_string_is_repeated()
+    {
+        $this->assertEquals('lalala', Manipulator::make('la')->repeat(3));
     }
 }
