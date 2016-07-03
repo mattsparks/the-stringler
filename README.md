@@ -74,6 +74,12 @@ Manipulator::make('Dog Gone')->remove('Gone');
 // Dog
 ```
 
+### removeSpecialCharacters
+```php
+Manipulator::make('Hello!!')->removeSpecialCharacters();
+// Hello
+```
+
 ### repeat
 ```php
 Manipulator::make('la')->repeat(3);
@@ -108,6 +114,12 @@ Manipulator::make('camel case')->toCamelCase();
 ```php
 Manipulator::make('LOWER')->toLower();
 // lower
+```
+
+### toSlug
+```php
+Manipulator::make('This is a slug!')->toSlug();
+// this-is-a-slug
 ```
 
 ### toSnakeCase

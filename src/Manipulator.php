@@ -157,6 +157,17 @@ class Manipulator
     }
 
     /**
+     * Remove non-alphanumeric characters.
+     *
+     * @return object
+     */
+    public function removeSpecialCharacters()
+    {
+        $modifiedString = preg_replace("/[^\w\d]/", '', $this->string);
+        return new static($modifiedString);
+    }
+
+    /**
      * Repeat a string.
      *
      * @param  integer $multiplier
@@ -234,6 +245,20 @@ class Manipulator
     public function toLower()
     {
         return new static(strtolower($this->string));
+    }
+
+    /**
+     * Convert string to slug
+     *
+     * @return object
+     */
+    public function toSlug()
+    {
+        $modifiedString = $this->toLower()
+            ->replace(' ', '-')
+            ->toString();
+
+        return new static(preg_replace("/[^\w\d\-]/", '', $modifiedString));
     }
 
     /**
