@@ -80,9 +80,9 @@ class Manipulator
     /**
      * HTML Entities
      *
-     * @param  const   $flags
-     * @param  string  $encoding
-     * @param  boolean $doubleEncode
+     * @param  constant  $flags
+     * @param  string    $encoding
+     * @param  boolean   $doubleEncode
      * @return object
      */
     public function htmlEntities($flags = ENT_HTML5, $encoding = 'UTF-8', $doubleEncode = true)
@@ -93,8 +93,8 @@ class Manipulator
     /**
      * Decode HTML Entities
      *
-     * @param  const  $flags
-     * @param  string $encoding
+     * @param  constant $flags
+     * @param  string   $encoding
      * @return object
      */
     public function htmlEntitiesDecode($flags = ENT_HTML5, $encoding = 'UTF-8')
@@ -105,9 +105,9 @@ class Manipulator
     /**
      * HTML Special Characters
      *
-     * @param  const   $flags
-     * @param  string  $encoding
-     * @param  boolean $doubleEncode
+     * @param  constant  $flags
+     * @param  string    $encoding
+     * @param  boolean   $doubleEncode
      * @return object
      */
     public function htmlSpecialCharacters($flags = ENT_HTML5, $encoding = 'UTF-8', $doubleEncode = true)
@@ -181,8 +181,9 @@ class Manipulator
     /**
      * Replace
      *
-     * @param  string $find
-     * @param  string $replace
+     * @param string $find
+     * @param string $replace
+     * @param bool   $caseSensitive
      * @return object
      */
     public function replace($find, $replace = '', $caseSensitive = true)
