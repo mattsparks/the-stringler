@@ -104,6 +104,12 @@ Manipulator::make('snake_case')->snakeToCamel();
 // snakeCase
 ```
 
+### stripTags
+```php
+Manipulator::make('<i>Hello</i>')->stripTags();
+// Hello
+```
+
 ### toCamelCase
 ```php
 Manipulator::make('camel case')->toCamelCase();

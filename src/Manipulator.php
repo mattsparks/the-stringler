@@ -223,6 +223,18 @@ class Manipulator
     }
 
     /**
+     * Strip HTML/PHP Tags
+     *
+     * @param string $allowed
+     * @return object
+     */
+    public function stripTags($allowed = '')
+    {
+        $modifiedString = strip_tags($this->string, $allowed);
+        return new static($modifiedString);
+    }
+
+    /**
      * Convert a string to camel-case.
      *
      * @return object

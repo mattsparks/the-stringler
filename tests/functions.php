@@ -168,4 +168,10 @@ class Functions extends \PHPUnit_Framework_TestCase
         $string = Manipulator::make('This is a sentence and will be truncated.')->truncate(10);
         $this->assertEquals($string, 'This is a ...');
     }
+
+    public function test_that_tags_are_stripped()
+    {
+        $string = Manipulator::make('<div><i>Hello, Moto!</i></div>')->stripTags('<div>');
+        $this->assertEquals($string, '<div>Hello, Moto!</div>');
+    }
 }
