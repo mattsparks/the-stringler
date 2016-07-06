@@ -78,6 +78,24 @@ class Manipulator
     }
 
     /**
+     * Get Possessive Version of String
+     *
+     * @return object
+     */
+    public function getPossessive()
+    {
+        $modifiedString = $this->trimEnd();
+
+        if(substr($modifiedString, -1) === 's') {
+            $modifiedString .= '\'';
+        } else {
+            $modifiedString .= '\'s';
+        }
+
+        return new static($modifiedString);
+    }
+
+    /**
      * HTML Entities
      *
      * @param  constant  $flags

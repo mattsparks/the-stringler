@@ -174,4 +174,13 @@ class Functions extends \PHPUnit_Framework_TestCase
         $string = Manipulator::make('<div><i>Hello, Moto!</i></div>')->stripTags('<div>');
         $this->assertEquals($string, '<div>Hello, Moto!</div>');
     }
+
+    public function test_that_possessive_string_is_returned()
+    {
+        $string = Manipulator::make('Bob ')->getPossessive();
+        $this->assertEquals($string, 'Bob\'s');
+
+        $string = Manipulator::make('Silas')->getPossessive();
+        $this->assertEquals($string, 'Silas\'');
+    }
 }
