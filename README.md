@@ -149,16 +149,16 @@ Manipulator::make('  trimmed')->trimBeginning();
 // trimmed
 ```
 
-### truncate
-```php
-Manipulator:make('This is a sentence and will be truncated.')->truncate(10, '...');
-// This is a ...
-```
-
 ### trimEnd
 ```php
 Manipulator::make('trimmed  ')->trimEnd();
 // trimmed
+```
+
+### truncate
+```php
+Manipulator:make('This is a sentence and will be truncated.')->truncate(10, '...');
+// This is a ...
 ```
 
 ### urlDecode
