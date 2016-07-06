@@ -32,6 +32,14 @@ Manipulator::make('i like toast!')->capitalizeEach();
 // I Like Toast!
 ```
 
+### getPossessive
+```php
+Manipulator::make('Bob')->getPossessive();
+// Bob's
+Manipulator::make('Silas')->getPossessive();
+// Silas'
+```
+
 ### htmlEntities
 ```php
 Manipulator::make('&')->htmlEntitiesDecode();
