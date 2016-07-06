@@ -265,7 +265,7 @@ class Manipulator
     /**
      * Convert string to snake-case
      *
-     * @return obect
+     * @return object
      */
     public function toSnakeCase()
     {
@@ -304,6 +304,19 @@ class Manipulator
     public function trim()
     {
         return new static(trim($this->string));
+    }
+
+    /**
+     * Truncate
+     *
+     * @param int    $length
+     * @param string $append
+     * @return object
+     */
+    public function truncate($length = 100, $append = '...')
+    {
+        $modifiedString = substr($this->string, 0, $length) . $append;
+        return new static($modifiedString);
     }
 
     /**

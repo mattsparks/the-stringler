@@ -162,4 +162,10 @@ class Functions extends \PHPUnit_Framework_TestCase
         $string = Manipulator::make('This is a slug!')->toSlug();
         $this->assertEquals($string, 'this-is-a-slug');
     }
+
+    public function test_that_a_string_is_truncated_and_appended_to()
+    {
+        $string = Manipulator::make('This is a sentence and will be truncated.')->truncate(10);
+        $this->assertEquals($string, 'This is a ...');
+    }
 }
