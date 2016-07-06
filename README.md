@@ -169,7 +169,7 @@ Manipulator::make('hello%21')->urlDecode();
 
 ### urlEncode
 ```php
-Manipulator::make('hello!')->urlDecode();
+Manipulator::make('hello!')->urlEncode();
 // hello%21
 ```
 ## Chainable
