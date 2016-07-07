@@ -183,4 +183,10 @@ class Functions extends \PHPUnit_Framework_TestCase
         $string = Manipulator::make('Silas')->getPossessive();
         $this->assertEquals($string, 'Silas\'');
     }
+
+    public function test_that_string_is_pluralized()
+    {
+        $string = Manipulator::make('potato')->pluralize();
+        $this->assertEquals($string, 'potatoes');
+    }
 }

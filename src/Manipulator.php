@@ -1,6 +1,8 @@
 <?php
 namespace TheStringler\Manipulator;
 
+use Doctrine\Common\Inflector\Inflector;
+
 class Manipulator
 {
     /**
@@ -150,6 +152,14 @@ class Manipulator
     public static function make($string)
     {
         return new static($string);
+    }
+
+    /**
+     * @return object
+     */
+    public function pluralize()
+    {
+        return new static(Inflector::pluralize($this->string));
     }
 
     /**
