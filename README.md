@@ -76,6 +76,11 @@ Manipulator::make('is the one.')->prepend('Neo ');
 // Neo is the one.
 ```
 
+### pluralize
+```php
+Manipulator::make('Potato')->pluralize();
+// Potatoes
+```
 ### remove
 ```php
 Manipulator::make('Dog Gone')->remove('Gone');
