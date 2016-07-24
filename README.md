@@ -8,6 +8,8 @@ Via composer:
 composer require thestringler/manipulator
 ```
 
+Using Laravel? Checkout [The Stringler Laravel Package](https://github.com/mattsparks/the-stringler-laravel). 
+
 ## Methods
 ### append
 ```php

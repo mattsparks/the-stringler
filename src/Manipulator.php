@@ -1,5 +1,4 @@
-<?php
-namespace TheStringler\Manipulator;
+<?php namespace TheStringler\Manipulator;
 
 use Doctrine\Common\Inflector\Inflector;
 
@@ -98,6 +97,18 @@ class Manipulator
     }
 
     /**
+     * Decode HTML Entities
+     *
+     * @param  constant $flags
+     * @param  string   $encoding
+     * @return object
+     */
+    public function htmlEntitiesDecode($flags = ENT_HTML5, $encoding = 'UTF-8')
+    {
+        return new static(html_entity_decode($this->string, $flags, $encoding));
+    }
+
+    /**
      * HTML Entities
      *
      * @param  constant  $flags
@@ -108,18 +119,6 @@ class Manipulator
     public function htmlEntities($flags = ENT_HTML5, $encoding = 'UTF-8', $doubleEncode = true)
     {
         return new static(htmlentities($this->string, $flags, $encoding, $doubleEncode));
-    }
-
-    /**
-     * Decode HTML Entities
-     *
-     * @param  constant $flags
-     * @param  string   $encoding
-     * @return object
-     */
-    public function htmlEntitiesDecode($flags = ENT_HTML5, $encoding = 'UTF-8')
-    {
-        return new static(html_entity_decode($this->string, $flags, $encoding));
     }
 
     /**
@@ -147,6 +146,8 @@ class Manipulator
     }
 
     /**
+     * Named Constructor
+     *
      * @return object
      */
     public static function make($string)
@@ -155,6 +156,8 @@ class Manipulator
     }
 
     /**
+     * Pluaralize String
+     *
      * @return object
      */
     public function pluralize()
@@ -347,19 +350,6 @@ class Manipulator
     }
 
     /**
-     * Truncate
-     *
-     * @param int    $length
-     * @param string $append
-     * @return object
-     */
-    public function truncate($length = 100, $append = '...')
-    {
-        $modifiedString = substr($this->string, 0, $length) . $append;
-        return new static($modifiedString);
-    }
-
-    /**
      * Trim the beginning of the string.
      *
      * @return object
@@ -380,6 +370,19 @@ class Manipulator
     }
 
     /**
+     * Truncate
+     *
+     * @param int    $length
+     * @param string $append
+     * @return object
+     */
+    public function truncate($length = 100, $append = '...')
+    {
+        $modifiedString = substr($this->string, 0, $length) . $append;
+        return new static($modifiedString);
+    }
+
+    /**
      * Decode URL
      *
      * @return object
@@ -391,6 +394,7 @@ class Manipulator
 
     /**
      * Encode URL
+     *
      * @return object
      */
     public function urlEncode()
