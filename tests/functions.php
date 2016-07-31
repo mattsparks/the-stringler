@@ -201,4 +201,10 @@ class Functions extends \PHPUnit_Framework_TestCase
         $string = Manipulator::make('Hello')->pad(7, '!!', STR_PAD_RIGHT);
         $this->assertEquals($string, 'Hello!!');
     }
+
+    public function test_that_a_snake_case_string_is_converted_to_class_name()
+    {
+        $string = Manipulator::make('class_name')->snakeToClass();
+        $this->assertEquals($string, 'ClassName');
+    }
 }

@@ -125,6 +125,12 @@ Manipulator::make('snake_case')->snakeToCamel();
 // snakeCase
 ```
 
+### snakeToClass
+```php
+Manipulator::make('class_name')->snakeToClass();
+// ClassName
+```
+
 ### stripTags
 ```php
 Manipulator::make('<i>Hello</i>')->stripTags();

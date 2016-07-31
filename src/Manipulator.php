@@ -254,7 +254,6 @@ class Manipulator
         } else {
             return new static(str_ireplace($find, $replace, $this->string));
         }
-
     }
 
     /**
@@ -278,6 +277,22 @@ class Manipulator
             ->capitalizeEach()
             ->lowercaseFirst()
             ->remove(' ')
+            ->toString();
+
+        return new static($modifiedString);
+    }
+
+    /**
+     * snakeToClass
+     *
+     * @return object
+     */
+    public function snakeToClass()
+    {
+        $modifiedString = $this->replace('_', ' ')
+            ->toLower()
+            ->capitalizeEach()
+            ->replace(' ', '')
             ->toString();
 
         return new static($modifiedString);
@@ -432,5 +447,4 @@ class Manipulator
     {
         return new static(urlencode($this->string));
     }
-
 }
