@@ -157,6 +157,12 @@ class Functions extends \PHPUnit_Framework_TestCase
         $this->assertEquals($string, 'Hello');
     }
 
+    public function test_that_special_characters_are_removed_with_exceptions()
+    {
+        $string = Manipulator::make('Hello-Moto!!')->removeSpecialCharacters(['-']);
+        $this->assertEquals($string, 'Hello-Moto');
+    }
+
     public function test_that_a_string_is_converted_to_a_slug()
     {
         $string = Manipulator::make('This is a slug!')->toSlug();

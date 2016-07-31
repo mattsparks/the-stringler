@@ -2,6 +2,10 @@
 
 use Doctrine\Common\Inflector\Inflector;
 
+/**
+ * Class Manipulator
+ * @package TheStringler\Manipulator
+ */
 class Manipulator
 {
     /**
@@ -148,6 +152,7 @@ class Manipulator
     /**
      * Named Constructor
      *
+     * @param string
      * @return object
      */
     public static function make($string)
@@ -180,6 +185,7 @@ class Manipulator
      * Remove from string.
      *
      * @param  string
+     * @param boolean
      * @return object
      */
     public function remove($string, $caseSensitive = true)
@@ -190,11 +196,22 @@ class Manipulator
     /**
      * Remove non-alphanumeric characters.
      *
+     * @param array
      * @return object
      */
-    public function removeSpecialCharacters()
+    public function removeSpecialCharacters($exceptions = [])
     {
-        $modifiedString = preg_replace("/[^\w\d]/", '', $this->string);
+        $regEx  = "/";
+        $regEx .= "[^\w\d";
+
+        foreach($exceptions as $exception) {
+            $regEx .= "\\" . $exception;
+        }
+
+        $regEx .= "]/";
+
+        $modifiedString = preg_replace($regEx, '', $this->string);
+
         return new static($modifiedString);
     }
 
@@ -300,9 +317,10 @@ class Manipulator
     {
         $modifiedString = $this->toLower()
             ->replace(' ', '-')
+            ->removeSpecialCharacters(['-'])
             ->toString();
 
-        return new static(preg_replace("/[^\w\d\-]/", '', $modifiedString));
+        return new static($modifiedString);
     }
 
     /**
