@@ -72,6 +72,12 @@ Manipulator::make('HELLO')->lowercaseFirst();
 Manipulator::make('string');
 ```
 
+### pad
+```php
+Manipulator::make('Hello')->pad(2, '!!', STR_PAD_RIGHT);
+// Hello!!
+```
+
 ### prepend
 ```php
 Manipulator::make('is the one.')->prepend('Neo ');

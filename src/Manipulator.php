@@ -161,6 +161,19 @@ class Manipulator
     }
 
     /**
+     * Pad
+     *
+     * @param int
+     * @param string
+     * @param constant
+     * @return object
+     */
+    public function pad($length, $string, $type = null)
+    {
+        return new static(str_pad($this->string, $length, $string, $type));
+    }
+
+    /**
      * Pluaralize String
      *
      * @return object

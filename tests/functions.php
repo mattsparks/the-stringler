@@ -195,4 +195,10 @@ class Functions extends \PHPUnit_Framework_TestCase
         $string = Manipulator::make('potato')->pluralize();
         $this->assertEquals($string, 'potatoes');
     }
+
+    public function test_that_the_string_is_padded()
+    {
+        $string = Manipulator::make('Hello')->pad(7, '!!', STR_PAD_RIGHT);
+        $this->assertEquals($string, 'Hello!!');
+    }
 }
