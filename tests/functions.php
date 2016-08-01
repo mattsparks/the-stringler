@@ -196,6 +196,22 @@ class Functions extends \PHPUnit_Framework_TestCase
         $this->assertEquals($string, 'potatoes');
     }
 
+    public function test_that_a_string_with_1_or_less_items_is_not_pluralized()
+    {
+        $num_of_potatoes = 1;
+        $string = Manipulator::make('potato')->pluralize($num_of_potatoes)->toString();
+        $final = "I have $num_of_potatoes $string.";
+        $this->assertEquals($final, 'I have 1 potato.');
+    }
+
+    public function test_that_a_string_with_2_or_more_items_is_pluralized()
+    {
+        $num_of_potatoes = 10;
+        $string = Manipulator::make('potato')->pluralize($num_of_potatoes)->toString();
+        $final = "I have $num_of_potatoes $string.";
+        $this->assertEquals($final, 'I have 10 potatoes.');
+    }
+
     public function test_that_the_string_is_padded()
     {
         $string = Manipulator::make('Hello')->pad(7, '!!', STR_PAD_RIGHT);

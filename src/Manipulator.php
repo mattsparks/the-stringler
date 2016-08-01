@@ -178,8 +178,20 @@ class Manipulator
      *
      * @return object
      */
-    public function pluralize()
+    public function pluralize($items = null)
     {
+        /**
+         * Optional parameter to determine if a string
+         * should be pluralized.
+         */
+        if(!is_null($items)) {
+            $count = is_numeric($items) ? $items : count($items);
+
+            if($count <= 1) {
+                return $this;
+            }
+        }
+
         return new static(Inflector::pluralize($this->string));
     }
 

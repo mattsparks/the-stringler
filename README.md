@@ -11,7 +11,7 @@ composer require thestringler/manipulator
 Using Laravel? Checkout [The Stringler Laravel Package](https://github.com/mattsparks/the-stringler-laravel). 
 
 ## Methods
-### append
+### append($string)
 ```php
 Manipulator::make('Freak')->append(' Out!');
 // Freak Out!
@@ -42,19 +42,19 @@ Manipulator::make('Silas')->getPossessive();
 // Silas'
 ```
 
-### htmlEntities
+### htmlEntities($flags = ENT_HTML5, $encoding = 'UTF-8', $doubleEncode = true)
 ```php
 Manipulator::make('&')->htmlEntitiesDecode();
 // &amp;
 ```
 
-### htmlEntitiesDecode
+### htmlEntitiesDecode($flags = ENT_HTML5, $encoding = 'UTF-8')
 ```php
 Manipulator::make('&amp;')->htmlEntitiesDecode();
 // &
 ```
 
-### htmlSpecialCharacters
+### htmlSpecialCharacters($flags = ENT_HTML5, $encoding = 'UTF-8', $doubleEncode = true)
 ```php
 Manipulator::make('&<>')->htmlSpecialCharacters();
 // &amp;&lt;&gt;
@@ -66,48 +66,63 @@ Manipulator::make('HELLO')->lowercaseFirst();
 // hELLO
 ```
 
-### make
+### make($string)
 ```php
 // Named constructor
 Manipulator::make('string');
 ```
 
-### pad
+### pad($length, $string, $type = null)
 ```php
 Manipulator::make('Hello')->pad(2, '!!', STR_PAD_RIGHT);
 // Hello!!
 ```
 
-### prepend
+### prepend($string)
 ```php
 Manipulator::make('is the one.')->prepend('Neo ');
 // Neo is the one.
 ```
 
-### pluralize
+### pluralize($items = null)
 ```php
 Manipulator::make('Potato')->pluralize();
 // Potatoes
 ```
-### remove
+
+You can optionally pass an array or numeric value to `pluaralize` to determine if the given string should be pluaralized.
+
+```php
+$dogs = ['Zoe', 'Spot', 'Pickles'];
+Manipulator::make('Dog')->pluralize($dogs);
+// Dogs
+
+$cats = ['Whiskers'];
+Manipulator::make('Cat')->pluralize($cats);
+// Cat
+```
+
+### remove($string, $caseSensitive = true)
 ```php
 Manipulator::make('Dog Gone')->remove('Gone');
 // Dog
 ```
 
-### removeSpecialCharacters
+### removeSpecialCharacters($exceptions = [])
 ```php
 Manipulator::make('Hello!!')->removeSpecialCharacters();
 // Hello
+Manipulator::make('Hello!!')->removeSpecialCharacters(['!']);
+// Hello!!
 ```
 
-### repeat
+### repeat($multiplier = 1)
 ```php
 Manipulator::make('la')->repeat(3);
 // lalala
 ```
 
-### replace
+### replace($find, $replace = '', $caseSensitive = true)
 ```php
 Manipulator::make('Pickles are good.')->replace('good', 'terrible');
 // Pickles are terrible.
@@ -131,7 +146,7 @@ Manipulator::make('class_name')->snakeToClass();
 // ClassName
 ```
 
-### stripTags
+### stripTags($allowed = '')
 ```php
 Manipulator::make('<i>Hello</i>')->stripTags();
 // Hello
@@ -188,7 +203,7 @@ Manipulator::make('trimmed  ')->trimEnd();
 // trimmed
 ```
 
-### truncate
+### truncate($length = 100, $append = '...')
 ```php
 Manipulator:make('This is a sentence and will be truncated.')->truncate(10, '...');
 // This is a ...
