@@ -1,6 +1,7 @@
 <?php namespace TheStringler\Manipulator;
 
 use Doctrine\Common\Inflector\Inflector;
+use TheStringler\Manipulator\Exceptions\CreatingStringException;
 
 /**
  * Class Manipulator
@@ -15,9 +16,14 @@ class Manipulator
 
     /**
      * @param string
+     * @throws CreatingStringException
      */
     public function __construct($string)
     {
+        if(!is_string($string)) {
+            throw new CreatingStringException('Cannot create string. Type ' . gettype($string) . ' was passed.');
+        }
+
         $this->string = $string;
     }
 
@@ -176,6 +182,7 @@ class Manipulator
     /**
      * Pluaralize String
      *
+     * @param mixed
      * @return object
      */
     public function pluralize($items = null)
@@ -318,8 +325,7 @@ class Manipulator
      */
     public function stripTags($allowed = '')
     {
-        $modifiedString = strip_tags($this->string, $allowed);
-        return new static($modifiedString);
+        return new static(strip_tags($this->string, $allowed));
     }
 
     /**
@@ -436,8 +442,7 @@ class Manipulator
      */
     public function truncate($length = 100, $append = '...')
     {
-        $modifiedString = substr($this->string, 0, $length) . $append;
-        return new static($modifiedString);
+        return new static(substr($this->string, 0, $length) . $append);
     }
 
     /**

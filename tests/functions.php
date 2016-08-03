@@ -6,6 +6,14 @@ use TheStringler\Manipulator\Manipulator as Manipulator;
 class Functions extends \PHPUnit_Framework_TestCase
 {
 
+    /**
+     * @expectedException TheStringler\Manipulator\Exceptions\CreatingStringException
+     */
+    public function test_that_an_exception_is_thrown_when_creating_the_object()
+    {
+        Manipulator::make(['not', 'a', 'string']);
+    }
+
     public function test_string_is_appended()
     {
         $string = Manipulator::make('Hello')->append(' Dolly');
@@ -210,6 +218,14 @@ class Functions extends \PHPUnit_Framework_TestCase
         $string = Manipulator::make('potato')->pluralize($num_of_potatoes)->toString();
         $final = "I have $num_of_potatoes $string.";
         $this->assertEquals($final, 'I have 10 potatoes.');
+    }
+
+    public function test_that_a_string_with_2_or_more_items_is_pluralized_when_passed_an_array()
+    {
+        $num_of_potatoes = ['one', 'two', 'three'];
+        $string = Manipulator::make('potato')->pluralize($num_of_potatoes)->toString();
+        $final = "I have a bunch of $string.";
+        $this->assertEquals($final, 'I have a bunch of potatoes.');
     }
 
     public function test_that_the_string_is_padded()
