@@ -228,3 +228,11 @@ All of these methods (minus `toString`) can be chained.
 Manipulator::make('hello')->toUpper()->reverse();
 // OLLEH
 ```
+
+## Contribute
+Contributions are very welcome! 
+
+1. Follow the [PSR-2 Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
+2. Send a pull request.
+
+That's pretty much it! 
