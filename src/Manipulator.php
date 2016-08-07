@@ -79,13 +79,7 @@ class Manipulator
      */
     public function capitalizeEach()
     {
-        $modifiedString = '';
-
-        foreach (explode(' ', $this->string) as $word) {
-            $modifiedString .= ucfirst($word) . ' ';
-        }
-
-        return new static(trim($modifiedString));
+        return new static(trim(ucwords($this->string)));
     }
 
     /**
