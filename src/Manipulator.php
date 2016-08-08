@@ -59,17 +59,18 @@ class Manipulator
             $modifiedString .= ctype_upper($character) ? '_' . $character : $character;
         }
 
-        return new static(strtolower($modifiedString));
+        return new static(mb_strtolower($modifiedString));
     }
 
     /**
      * Capitalize the string.
      *
+     * @link https://gist.github.com/lfbittencourt/881f55c2d95810568ed7
      * @return object
      */
     public function capitalize()
     {
-        return new static(ucfirst($this->string));
+        return new static(mb_strtoupper(mb_substr($this->string, 0, 1)) . mb_substr($this->string, 1));
     }
 
     /**
@@ -79,7 +80,7 @@ class Manipulator
      */
     public function capitalizeEach()
     {
-        return new static(trim(ucwords($this->string)));
+        return new static(trim(mb_convert_case($this->string, MB_CASE_TITLE)));
     }
 
     /**
@@ -91,7 +92,7 @@ class Manipulator
     {
         $modifiedString = $this->trimEnd();
 
-        if(substr($modifiedString, -1) === 's') {
+        if(mb_substr($modifiedString, -1) === 's') {
             $modifiedString .= '\'';
         } else {
             $modifiedString .= '\'s';
@@ -142,11 +143,12 @@ class Manipulator
      * Make the first letter of the string
      * lowercase.
      *
+     * @link https://gist.github.com/lfbittencourt/881f55c2d95810568ed7
      * @return object
      */
     public function lowercaseFirst()
     {
-        return new static(lcfirst($this->string));
+        return new static(mb_strtolower(mb_substr($this->string, 0, 1)) . mb_substr($this->string, 1));
     }
 
     /**
@@ -332,10 +334,15 @@ class Manipulator
         $modifiedString = '';
 
         foreach (explode(' ', $this->string) as $word) {
-            $modifiedString .= ucfirst(strtolower($word));
+            $modifiedString .= self::make($word)->toLower()->capitalize()->toString();
         }
 
-        return new static(lcfirst(str_replace(' ', '', $modifiedString)));
+        $final = self::make($modifiedString)
+            ->replace(' ', '')
+            ->lowercaseFirst()
+            ->toString();
+
+        return new static($final);
     }
 
     /**
@@ -345,7 +352,7 @@ class Manipulator
      */
     public function toLower()
     {
-        return new static(strtolower($this->string));
+        return new static(mb_strtolower($this->string));
     }
 
     /**
@@ -394,7 +401,7 @@ class Manipulator
      */
     public function toUpper()
     {
-        return new static(strtoupper($this->string));
+        return new static(mb_strtoupper($this->string));
     }
 
     /**
@@ -436,7 +443,7 @@ class Manipulator
      */
     public function truncate($length = 100, $append = '...')
     {
-        return new static(substr($this->string, 0, $length) . $append);
+        return new static(mb_substr($this->string, 0, $length) . $append);
     }
 
     /**
