@@ -44,7 +44,7 @@ Manipulator::make('Silas')->getPossessive();
 
 ### htmlEntities($flags = ENT_HTML5, $encoding = 'UTF-8', $doubleEncode = true)
 ```php
-Manipulator::make('&')->htmlEntitiesDecode();
+Manipulator::make('&')->htmlEntities();
 // &amp;
 ```
 
