@@ -264,11 +264,10 @@ class Manipulator
      */
     public function replace($find, $replace = '', $caseSensitive = true)
     {
-        if ($caseSensitive) {
-            return new static(str_replace($find, $replace, $this->string));
-        } else {
-            return new static(str_ireplace($find, $replace, $this->string));
-        }
+        $replaced = $caseSensitive ? str_replace($find, $replace, $this->string) :
+                                     str_ireplace($find, $replace, $this->string);
+
+        return new static($replaced);
     }
 
     /**
