@@ -239,4 +239,10 @@ class Functions extends \PHPUnit_Framework_TestCase
         $string = Manipulator::make('class_name')->snakeToClass();
         $this->assertEquals($string, 'ClassName');
     }
+
+    public function test_that_a_camel_case_string_is_converted_to_class_case()
+    {
+		$string = Manipulator::make('className')->camelToClass();
+	    $this->assertEquals($string, 'ClassName');
+    }
 }

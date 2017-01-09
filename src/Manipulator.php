@@ -62,6 +62,16 @@ class Manipulator
         return new static(mb_strtolower($modifiedString));
     }
 
+	/**
+	 * Convert a camel-case string to class-case.
+	 *
+	 * @return object
+	 */
+    public function camelToClass()
+    {
+	    return new static($this->capitalize()->toString());
+    }
+
     /**
      * Capitalize the string.
      *

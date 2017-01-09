@@ -23,6 +23,12 @@ Manipulator::make('camelCase')->camelToSnake();
 // camel_case
 ```
 
+### camelToClass
+```php
+Manipulator::make('className')->camelToClass();
+// ClassName
+```
+
 ### capitalize
 ```php
 Manipulator::make('hello')->capitalize();
