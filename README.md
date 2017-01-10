@@ -40,6 +40,27 @@ Manipulator::make('i like toast!')->capitalizeEach();
 // I Like Toast!
 ```
 
+### eachCharacter($closure)
+```php
+Manipulator::make('hello')->eachCharacter(function($char) {
+    return strtoupper($char);
+});
+// HELLO
+```
+
+### eachWord($closure, $preserveSpaces = false)
+```php
+Manipulator::make('hello moto')->eachWord(function($word) {
+    return strrev($word);
+});
+// ollehotom
+
+$string = Manipulator::make('hello moto')->eachWord(function($word) {
+    return strrev($word);
+}, true);
+// olleh otom
+```
+
 ### getPossessive
 ```php
 Manipulator::make('Bob')->getPossessive();

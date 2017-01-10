@@ -93,6 +93,40 @@ class Manipulator
         return new static(trim(mb_convert_case($this->string, MB_CASE_TITLE)));
     }
 
+	/**
+	 * Perform an action on each character in the string.
+	 *
+	 * @param $closure
+	 * @return object
+	 */
+    public function eachCharacter($closure) {
+	    $modifiedString = '';
+
+	    foreach (str_split($this->string) as $character) {
+			$modifiedString .= $closure($character);
+		}
+
+		return new static($modifiedString);
+    }
+
+	/**
+	 * Perform an action on each word in the string.
+	 *
+	 * @param $closure
+	 * @param bool $preserveSpaces
+	 * @return object
+	 */
+    public function eachWord($closure, $preserveSpaces = false) {
+	    $modifiedString = '';
+
+	    foreach(explode(' ', $this->string) as $word) {
+		    $modifiedString .= $closure($word);
+		    $modifiedString .= $preserveSpaces ? ' ' : '';
+	    }
+
+	    return new static(trim($modifiedString));
+    }
+
     /**
      * Get Possessive Version of String
      *

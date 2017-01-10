@@ -245,4 +245,28 @@ class Functions extends \PHPUnit_Framework_TestCase
 		$string = Manipulator::make('className')->camelToClass();
 	    $this->assertEquals($string, 'ClassName');
     }
+
+    public function test_that_each_character_is_capitalized()
+    {
+	    $string = Manipulator::make('hello')->eachCharacter(function($char) {
+		    return strtoupper($char);
+	    });
+	    $this->assertEquals($string, 'HELLO');
+    }
+
+	public function test_that_each_character_is_reversed_spaces_not_preserved()
+	{
+		$string = Manipulator::make('hello moto')->eachWord(function($word) {
+			return strrev($word);
+		});
+		$this->assertEquals($string, 'ollehotom');
+	}
+
+	public function test_that_each_character_is_reversed_spaces_preserved()
+	{
+		$string = Manipulator::make('hello moto')->eachWord(function($word) {
+			return strrev($word);
+		}, true);
+		$this->assertEquals($string, 'olleh otom');
+	}
 }
