@@ -269,4 +269,10 @@ class Functions extends \PHPUnit_Framework_TestCase
 		}, true);
 		$this->assertEquals($string, 'olleh otom');
 	}
+
+	public function test_that_string_is_made_l33t()
+	{
+		$isL33t = Manipulator::make('Hack The Planet!')->toL33t()->toString();
+		$this->assertTrue(is_string($isL33t));
+	}
 }

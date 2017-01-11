@@ -185,6 +185,12 @@ Manipulator::make('camel case')->toCamelCase();
 // camelCase
 ```
 
+### toL33t
+```php
+Manipulator::make('Hack The Planet!');
+// (-)@{|< +/-/€ |O7@|\|€][!
+```
+
 ### toLower
 ```php
 Manipulator::make('LOWER')->toLower();

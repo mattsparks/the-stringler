@@ -1,6 +1,7 @@
 <?php namespace TheStringler\Manipulator;
 
 use Doctrine\Common\Inflector\Inflector;
+use TheStringler\Manipulator\L33t;
 use TheStringler\Manipulator\Exceptions\CreatingStringException;
 
 /**
@@ -386,6 +387,19 @@ class Manipulator
             ->toString();
 
         return new static($final);
+    }
+
+	/**
+	 * Make a string L33t.
+	 *
+	 * @return object
+	 */
+    public function toL33t() {
+	    $modifiedString = $this->eachCharacter(function($char) {
+		   return L33t::makeItL33t($char);
+	    })->toString();
+
+	    return new static($modifiedString);
     }
 
     /**
