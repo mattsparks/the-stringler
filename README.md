@@ -187,7 +187,7 @@ Manipulator::make('camel case')->toCamelCase();
 
 ### toL33t
 ```php
-Manipulator::make('Hack The Planet!');
+Manipulator::make('Hack The Planet!')->toL33t();
 // (-)@{|< +/-/€ |O7@|\|€][!
 ```
 
