@@ -39,7 +39,7 @@ class L33t {
 		'z' => ['2', '-/_', '%'],
 	];
 
-	public static function makeItL33t($character) {
+	public static function makeItL33t(string $character) : string {
 		$lower = strtolower($character);
 
 		if(array_key_exists($lower, self::$letters)) {

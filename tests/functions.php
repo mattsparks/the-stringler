@@ -7,7 +7,7 @@ class Functions extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @expectedException TheStringler\Manipulator\Exceptions\CreatingStringException
+     * @expectedException \TypeError
      */
     public function test_that_an_exception_is_thrown_when_creating_the_object()
     {

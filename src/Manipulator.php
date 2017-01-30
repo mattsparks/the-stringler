@@ -2,7 +2,6 @@
 
 use Doctrine\Common\Inflector\Inflector;
 use TheStringler\Manipulator\L33t;
-use TheStringler\Manipulator\Exceptions\CreatingStringException;
 
 /**
  * Class Manipulator
@@ -17,42 +16,37 @@ class Manipulator
 
     /**
      * @param string
-     * @throws CreatingStringException
      */
-    public function __construct($string)
+    public function __construct(string $string)
     {
-        if(!is_string($string)) {
-            throw new CreatingStringException('Cannot create string. Type ' . gettype($string) . ' was passed.');
-        }
-
         $this->string = $string;
     }
 
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->string;
     }
 
-    /**
-     * Append to the string.
-     *
-     * @param  string
-     * @return object
-     */
-    public function append($string)
+	/**
+	 * Append to the string.
+	 *
+	 * @param string $string
+	 * @return object|Manipulator
+	 */
+    public function append(string $string) : Manipulator
     {
         return new static($this->string . $string);
     }
 
-    /**
-     * Convert a camel-case string to snake-case.
-     *
-     * @return object
-     */
-    public function camelToSnake()
+	/**
+	 * Convert a camel-case string to snake-case.
+	 *
+	 * @return object|Manipulator
+	 */
+    public function camelToSnake() : Manipulator
     {
         $modifiedString = '';
 
@@ -66,9 +60,9 @@ class Manipulator
 	/**
 	 * Convert a camel-case string to class-case.
 	 *
-	 * @return object
+	 * @return object|Manipulator
 	 */
-    public function camelToClass()
+    public function camelToClass() : Manipulator
     {
 	    return new static($this->capitalize()->toString());
     }
@@ -77,9 +71,9 @@ class Manipulator
      * Capitalize the string.
      *
      * @link https://gist.github.com/lfbittencourt/881f55c2d95810568ed7
-     * @return object
+     * @return object|Manipulator
      */
-    public function capitalize()
+    public function capitalize() : Manipulator
     {
         return new static(mb_strtoupper(mb_substr($this->string, 0, 1)) . mb_substr($this->string, 1));
     }
@@ -87,9 +81,9 @@ class Manipulator
     /**
      * Capitalize each word in the string.
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function capitalizeEach()
+    public function capitalizeEach() : Manipulator
     {
         return new static(trim(mb_convert_case($this->string, MB_CASE_TITLE)));
     }
@@ -98,9 +92,10 @@ class Manipulator
 	 * Perform an action on each character in the string.
 	 *
 	 * @param $closure
-	 * @return object
+	 * @return object|Manipulator
 	 */
-    public function eachCharacter($closure) {
+    public function eachCharacter(\Closure $closure) : Manipulator
+    {
 	    $modifiedString = '';
 
 	    foreach (str_split($this->string) as $character) {
@@ -115,9 +110,10 @@ class Manipulator
 	 *
 	 * @param $closure
 	 * @param bool $preserveSpaces
-	 * @return object
+	 * @return object|Manipulator
 	 */
-    public function eachWord($closure, $preserveSpaces = false) {
+    public function eachWord(\Closure $closure, bool $preserveSpaces = false) : Manipulator
+    {
 	    $modifiedString = '';
 
 	    foreach(explode(' ', $this->string) as $word) {
@@ -131,9 +127,9 @@ class Manipulator
     /**
      * Get Possessive Version of String
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function getPossessive()
+    public function getPossessive() : Manipulator
     {
         $modifiedString = $this->trimEnd();
 
@@ -151,9 +147,9 @@ class Manipulator
      *
      * @param  constant $flags
      * @param  string   $encoding
-     * @return object
+     * @return object|Manipulator
      */
-    public function htmlEntitiesDecode($flags = ENT_HTML5, $encoding = 'UTF-8')
+    public function htmlEntitiesDecode($flags = ENT_HTML5, string $encoding = 'UTF-8') : Manipulator
     {
         return new static(html_entity_decode($this->string, $flags, $encoding));
     }
@@ -164,9 +160,9 @@ class Manipulator
      * @param  constant  $flags
      * @param  string    $encoding
      * @param  boolean   $doubleEncode
-     * @return object
+     * @return object|Manipulator
      */
-    public function htmlEntities($flags = ENT_HTML5, $encoding = 'UTF-8', $doubleEncode = true)
+    public function htmlEntities($flags = ENT_HTML5, string $encoding = 'UTF-8', bool $doubleEncode = true) : Manipulator
     {
         return new static(htmlentities($this->string, $flags, $encoding, $doubleEncode));
     }
@@ -177,9 +173,9 @@ class Manipulator
      * @param  constant  $flags
      * @param  string    $encoding
      * @param  boolean   $doubleEncode
-     * @return object
+     * @return object|Manipulator
      */
-    public function htmlSpecialCharacters($flags = ENT_HTML5, $encoding = 'UTF-8', $doubleEncode = true)
+    public function htmlSpecialCharacters($flags = ENT_HTML5, string $encoding = 'UTF-8', bool $doubleEncode = true) : Manipulator
     {
         return new static(htmlspecialchars($this->string, $flags, $encoding, $doubleEncode));
     }
@@ -189,9 +185,9 @@ class Manipulator
      * lowercase.
      *
      * @link https://gist.github.com/lfbittencourt/881f55c2d95810568ed7
-     * @return object
+     * @return object|Manipulator
      */
-    public function lowercaseFirst()
+    public function lowercaseFirst() : Manipulator
     {
         return new static(mb_strtolower(mb_substr($this->string, 0, 1)) . mb_substr($this->string, 1));
     }
@@ -200,9 +196,9 @@ class Manipulator
      * Named Constructor
      *
      * @param string
-     * @return object
+     * @return object|Manipulator
      */
-    public static function make($string)
+    public static function make(string $string) : Manipulator
     {
         return new static($string);
     }
@@ -213,9 +209,9 @@ class Manipulator
      * @param int
      * @param string
      * @param constant
-     * @return object
+     * @return object|Manipulator
      */
-    public function pad($length, $string, $type = null)
+    public function pad($length, $string, $type = null) : Manipulator
     {
         return new static(str_pad($this->string, $length, $string, $type));
     }
@@ -224,9 +220,9 @@ class Manipulator
      * Pluaralize String
      *
      * @param mixed
-     * @return object
+     * @return object|Manipulator
      */
-    public function pluralize($items = null)
+    public function pluralize($items = null) : Manipulator
     {
         /**
          * Optional parameter to determine if a string
@@ -247,9 +243,9 @@ class Manipulator
      * Prepend the string.
      *
      * @param  string
-     * @return object
+     * @return object|Manipulator
      */
-    public function prepend($string)
+    public function prepend($string) : Manipulator
     {
         return new static($string . $this->string);
     }
@@ -259,9 +255,9 @@ class Manipulator
      *
      * @param  string
      * @param boolean
-     * @return object
+     * @return object|Manipulator
      */
-    public function remove($string, $caseSensitive = true)
+    public function remove($string, $caseSensitive = true) : Manipulator
     {
         return new static($this->replace($string, '', $caseSensitive)->toString());
     }
@@ -270,9 +266,9 @@ class Manipulator
      * Remove non-alphanumeric characters.
      *
      * @param array
-     * @return object
+     * @return object|Manipulator
      */
-    public function removeSpecialCharacters($exceptions = [])
+    public function removeSpecialCharacters(array $exceptions = []) : Manipulator
     {
         $regEx  = "/";
         $regEx .= "[^\w\d";
@@ -292,9 +288,9 @@ class Manipulator
      * Repeat a string.
      *
      * @param  integer $multiplier
-     * @return object
+     * @return object|Manipulator
      */
-    public function repeat($multiplier = 1)
+    public function repeat($multiplier = 1) : Manipulator
     {
         return new static(str_repeat($this->string, $multiplier));
     }
@@ -305,9 +301,9 @@ class Manipulator
      * @param string $find
      * @param string $replace
      * @param bool   $caseSensitive
-     * @return object
+     * @return object|Manipulator
      */
-    public function replace($find, $replace = '', $caseSensitive = true)
+    public function replace(string $find, string $replace = '', bool $caseSensitive = true) : Manipulator
     {
         $replaced = $caseSensitive ? str_replace($find, $replace, $this->string) :
                                      str_ireplace($find, $replace, $this->string);
@@ -318,9 +314,9 @@ class Manipulator
     /**
      * Reverse
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function reverse()
+    public function reverse() : Manipulator
     {
         return new static(strrev($this->string));
     }
@@ -328,9 +324,9 @@ class Manipulator
     /**
      * Convert snake-case to camel-case.
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function snakeToCamel()
+    public function snakeToCamel() : Manipulator
     {
         $modifiedString = $this->replace('_', ' ')
             ->capitalizeEach()
@@ -344,9 +340,9 @@ class Manipulator
     /**
      * snakeToClass
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function snakeToClass()
+    public function snakeToClass() : Manipulator
     {
         $modifiedString = $this->replace('_', ' ')
             ->toLower()
@@ -361,9 +357,9 @@ class Manipulator
      * Strip HTML/PHP Tags
      *
      * @param string $allowed
-     * @return object
+     * @return object|Manipulator
      */
-    public function stripTags($allowed = '')
+    public function stripTags(string $allowed = '') : Manipulator
     {
         return new static(strip_tags($this->string, $allowed));
     }
@@ -371,9 +367,9 @@ class Manipulator
     /**
      * Convert a string to camel-case.
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function toCamelCase()
+    public function toCamelCase() : Manipulator
     {
         $modifiedString = '';
 
@@ -392,22 +388,21 @@ class Manipulator
 	/**
 	 * Make a string L33t.
 	 *
-	 * @return object
+	 * @return object|Manipulator
 	 */
-    public function toL33t() {
-	    $modifiedString = $this->eachCharacter(function($char) {
-		   return L33t::makeItL33t($char);
-	    })->toString();
-
-	    return new static($modifiedString);
+    public function toL33t() : Manipulator
+    {
+	    return new static($this->eachCharacter(function($char) {
+		    return L33t::makeItL33t($char);
+	    })->toString());
     }
 
     /**
      * Convert the string to lowercase.
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function toLower()
+    public function toLower() : Manipulator
     {
         return new static(mb_strtolower($this->string));
     }
@@ -415,9 +410,9 @@ class Manipulator
     /**
      * Convert string to slug
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function toSlug()
+    public function toSlug() : Manipulator
     {
         $modifiedString = $this->toLower()
             ->replace(' ', '-')
@@ -430,9 +425,9 @@ class Manipulator
     /**
      * Convert string to snake-case
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function toSnakeCase()
+    public function toSnakeCase() : Manipulator
     {
         $modifiedString = $this->toLower()
             ->replace(' ', '_')
@@ -446,7 +441,7 @@ class Manipulator
      *
      * @return string
      */
-    public function toString()
+    public function toString() : string
     {
         return $this->string;
     }
@@ -454,9 +449,9 @@ class Manipulator
     /**
      * Capitalize entire string.
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function toUpper()
+    public function toUpper() : Manipulator
     {
         return new static(mb_strtoupper($this->string));
     }
@@ -464,9 +459,9 @@ class Manipulator
     /**
      * Trim
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function trim()
+    public function trim() : Manipulator
     {
         return new static(trim($this->string));
     }
@@ -474,9 +469,9 @@ class Manipulator
     /**
      * Trim the beginning of the string.
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function trimBeginning()
+    public function trimBeginning() : Manipulator
     {
         return new static(ltrim($this->string));
     }
@@ -484,9 +479,9 @@ class Manipulator
     /**
      * Trim the end of the string.
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function trimEnd()
+    public function trimEnd() : Manipulator
     {
         return new static(rtrim($this->string));
     }
@@ -496,9 +491,9 @@ class Manipulator
      *
      * @param int    $length
      * @param string $append
-     * @return object
+     * @return object|Manipulator
      */
-    public function truncate($length = 100, $append = '...')
+    public function truncate(int $length = 100, string $append = '...') : Manipulator
     {
         return new static(mb_substr($this->string, 0, $length) . $append);
     }
@@ -506,9 +501,9 @@ class Manipulator
     /**
      * Decode URL
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function urlDecode()
+    public function urlDecode() : Manipulator
     {
         return new static(urldecode($this->string));
     }
@@ -516,9 +511,9 @@ class Manipulator
     /**
      * Encode URL
      *
-     * @return object
+     * @return object|Manipulator
      */
-    public function urlEncode()
+    public function urlEncode() : Manipulator
     {
         return new static(urlencode($this->string));
     }
