@@ -211,13 +211,13 @@ class Manipulator
      * @param constant
      * @return object|Manipulator
      */
-    public function pad($length, $string, $type = null) : Manipulator
+    public function pad(int $length, string $string, $type = null) : Manipulator
     {
         return new static(str_pad($this->string, $length, $string, $type));
     }
 
     /**
-     * Pluaralize String
+     * Pluralize String
      *
      * @param mixed
      * @return object|Manipulator
@@ -245,7 +245,7 @@ class Manipulator
      * @param  string
      * @return object|Manipulator
      */
-    public function prepend($string) : Manipulator
+    public function prepend(string $string) : Manipulator
     {
         return new static($string . $this->string);
     }
@@ -257,7 +257,7 @@ class Manipulator
      * @param boolean
      * @return object|Manipulator
      */
-    public function remove($string, $caseSensitive = true) : Manipulator
+    public function remove(string $string, bool $caseSensitive = true) : Manipulator
     {
         return new static($this->replace($string, '', $caseSensitive)->toString());
     }
@@ -290,7 +290,7 @@ class Manipulator
      * @param  integer $multiplier
      * @return object|Manipulator
      */
-    public function repeat($multiplier = 1) : Manipulator
+    public function repeat(int $multiplier = 1) : Manipulator
     {
         return new static(str_repeat($this->string, $multiplier));
     }
