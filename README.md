@@ -8,7 +8,7 @@ Via composer:
 composer require thestringler/manipulator
 ```
 
-Using Laravel? Checkout [The Stringler Laravel Package](https://github.com/mattsparks/the-stringler-laravel). 
+Using Laravel? Checkout [The Stringler Laravel Package](https://github.com/mattsparks/the-stringler-laravel).
 
 ## Methods
 ### append($string)
@@ -127,6 +127,22 @@ Manipulator::make('Dog')->pluralize($dogs);
 $cats = ['Whiskers'];
 Manipulator::make('Cat')->pluralize($cats);
 // Cat
+```
+
+### nthCharacter($nth, $closure)
+```php
+Manipulator::make('Wordpress')->nthCharacter(5, function($character) {
+    return mb_strtoupper($character);
+});
+// WordPress
+```
+
+### nthWord($nth, $closure, $preserveSpaces = true)
+```php
+Manipulator::make('Oh hello there!')->nthWord(2, function($word) {
+    return mb_strtoupper($word);
+});
+// Oh HELLO there!
 ```
 
 ### remove($string, $caseSensitive = true)
@@ -263,9 +279,9 @@ Manipulator::make('hello')->toUpper()->reverse();
 ```
 
 ## Contribute
-Contributions are very welcome! 
+Contributions are very welcome!
 
 1. Follow the [PSR-2 Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 2. Send a pull request.
 
-That's pretty much it! 
+That's pretty much it!

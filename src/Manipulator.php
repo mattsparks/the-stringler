@@ -251,6 +251,48 @@ class Manipulator
     }
 
     /**
+     * Perfrom an action on the nth character.
+     *
+     * @param  int
+     * @param  Closure
+     * @return object|Manipulator
+     */
+    public function nthCharacter(int $nth, \Closure $closure) : Manipulator
+    {
+        $count = 1;
+        $modifiedString = '';
+
+        foreach (str_split($this->string) as $character) {
+            $modifiedString .= $count === $nth ? $closure($character) : $character;
+            $count++;
+        }
+
+        return new static($modifiedString);
+    }
+
+    /**
+     * Perform an action on the nth word.
+     *
+     * @param  int
+     * @param  Closure
+     * @param  boolean
+     * @return object|Manipulator
+     */
+    public function nthWord(int $nth, \Closure $closure, bool $preserveSpaces = true) : Manipulator
+    {
+        $count = 1;
+        $modifiedString = '';
+
+	    foreach(explode(' ', $this->string) as $word) {
+		    $modifiedString .= $count === $nth ? $closure($word) : $word;
+		    $modifiedString .= $preserveSpaces ? ' ' : '';
+            $count++;
+	    }
+
+	    return new static(trim($modifiedString));
+    }
+
+    /**
      * Remove from string.
      *
      * @param  string

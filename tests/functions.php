@@ -275,4 +275,20 @@ class Functions extends \PHPUnit_Framework_TestCase
 		$isL33t = Manipulator::make('Hack The Planet!')->toL33t()->toString();
 		$this->assertTrue(is_string($isL33t));
 	}
+
+    public function test_that_nth_character_is_modified()
+    {
+        $string = Manipulator::make('Wordpress')->nthCharacter(5, function($character) {
+            return mb_strtoupper($character);
+        });
+        $this->assertEquals($string, 'WordPress');
+    }
+
+    public function test_that_nth_word_is_modified()
+    {
+        $string = Manipulator::make('Oh hello there!')->nthWord(2, function($word) {
+            return mb_strtoupper($word);
+        });
+        $this->assertEquals($string, 'Oh HELLO there!');
+    }
 }
