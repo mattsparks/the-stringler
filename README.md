@@ -55,7 +55,7 @@ Manipulator::make('hello moto')->eachWord(function($word) {
 });
 // ollehotom
 
-$string = Manipulator::make('hello moto')->eachWord(function($word) {
+Manipulator::make('hello moto')->eachWord(function($word) {
     return strrev($word);
 }, true);
 // olleh otom
@@ -254,7 +254,7 @@ Manipulator::make('trimmed  ')->trimEnd();
 
 ### truncate($length = 100, $append = '...')
 ```php
-Manipulator:make('This is a sentence and will be truncated.')->truncate(10, '...');
+Manipulator::make('This is a sentence and will be truncated.')->truncate(10, '...');
 // This is a ...
 ```
 
