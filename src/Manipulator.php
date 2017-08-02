@@ -30,22 +30,22 @@ class Manipulator
         return $this->string;
     }
 
-	/**
-	 * Append to the string.
-	 *
-	 * @param string $string
-	 * @return object|Manipulator
-	 */
+    /**
+     * Append to the string.
+     *
+     * @param string $string
+     * @return object|Manipulator
+     */
     public function append(string $string) : Manipulator
     {
         return new static($this->string . $string);
     }
 
-	/**
-	 * Convert a camel-case string to snake-case.
-	 *
-	 * @return object|Manipulator
-	 */
+    /**
+     * Convert a camel-case string to snake-case.
+     *
+     * @return object|Manipulator
+     */
     public function camelToSnake() : Manipulator
     {
         $modifiedString = '';
@@ -57,14 +57,14 @@ class Manipulator
         return new static(mb_strtolower($modifiedString));
     }
 
-	/**
-	 * Convert a camel-case string to class-case.
-	 *
-	 * @return object|Manipulator
-	 */
+    /**
+     * Convert a camel-case string to class-case.
+     *
+     * @return object|Manipulator
+     */
     public function camelToClass() : Manipulator
     {
-	    return new static($this->capitalize()->toString());
+        return new static($this->capitalize()->toString());
     }
 
     /**
@@ -88,40 +88,40 @@ class Manipulator
         return new static(trim(mb_convert_case($this->string, MB_CASE_TITLE)));
     }
 
-	/**
-	 * Perform an action on each character in the string.
-	 *
-	 * @param $closure
-	 * @return object|Manipulator
-	 */
+    /**
+     * Perform an action on each character in the string.
+     *
+     * @param $closure
+     * @return object|Manipulator
+     */
     public function eachCharacter(\Closure $closure) : Manipulator
     {
-	    $modifiedString = '';
+        $modifiedString = '';
 
-	    foreach (str_split($this->string) as $character) {
-			$modifiedString .= $closure($character);
-		}
+        foreach (str_split($this->string) as $character) {
+            $modifiedString .= $closure($character);
+        }
 
-		return new static($modifiedString);
+        return new static($modifiedString);
     }
 
-	/**
-	 * Perform an action on each word in the string.
-	 *
-	 * @param $closure
-	 * @param bool $preserveSpaces
-	 * @return object|Manipulator
-	 */
+    /**
+     * Perform an action on each word in the string.
+     *
+     * @param $closure
+     * @param bool $preserveSpaces
+     * @return object|Manipulator
+     */
     public function eachWord(\Closure $closure, bool $preserveSpaces = false) : Manipulator
     {
-	    $modifiedString = '';
+        $modifiedString = '';
 
-	    foreach(explode(' ', $this->string) as $word) {
-		    $modifiedString .= $closure($word);
-		    $modifiedString .= $preserveSpaces ? ' ' : '';
-	    }
+        foreach (explode(' ', $this->string) as $word) {
+            $modifiedString .= $closure($word);
+            $modifiedString .= $preserveSpaces ? ' ' : '';
+        }
 
-	    return new static(trim($modifiedString));
+        return new static(trim($modifiedString));
     }
 
     /**
@@ -133,7 +133,7 @@ class Manipulator
     {
         $modifiedString = $this->trimEnd();
 
-        if(mb_substr($modifiedString, -1) === 's') {
+        if (mb_substr($modifiedString, -1) === 's') {
             $modifiedString .= '\'';
         } else {
             $modifiedString .= '\'s';
@@ -228,10 +228,10 @@ class Manipulator
          * Optional parameter to determine if a string
          * should be pluralized.
          */
-        if(!is_null($items)) {
+        if (!is_null($items)) {
             $count = is_numeric($items) ? $items : count($items);
 
-            if($count <= 1) {
+            if ($count <= 1) {
                 return $this;
             }
         }
@@ -283,13 +283,13 @@ class Manipulator
         $count = 1;
         $modifiedString = '';
 
-	    foreach(explode(' ', $this->string) as $word) {
-		    $modifiedString .= $count === $nth ? $closure($word) : $word;
-		    $modifiedString .= $preserveSpaces ? ' ' : '';
+        foreach (explode(' ', $this->string) as $word) {
+            $modifiedString .= $count === $nth ? $closure($word) : $word;
+            $modifiedString .= $preserveSpaces ? ' ' : '';
             $count++;
-	    }
+        }
 
-	    return new static(trim($modifiedString));
+        return new static(trim($modifiedString));
     }
 
     /**
@@ -315,7 +315,7 @@ class Manipulator
         $regEx  = "/";
         $regEx .= "[^\w\d";
 
-        foreach($exceptions as $exception) {
+        foreach ($exceptions as $exception) {
             $regEx .= "\\" . $exception;
         }
 
@@ -427,16 +427,16 @@ class Manipulator
         return new static($final);
     }
 
-	/**
-	 * Make a string L33t.
-	 *
-	 * @return object|Manipulator
-	 */
+    /**
+     * Make a string L33t.
+     *
+     * @return object|Manipulator
+     */
     public function toL33t() : Manipulator
     {
-	    return new static($this->eachCharacter(function($char) {
-		    return L33t::makeItL33t($char);
-	    })->toString());
+        return new static($this->eachCharacter(function ($char) {
+            return L33t::makeItL33t($char);
+        })->toString());
     }
 
     /**
@@ -558,5 +558,40 @@ class Manipulator
     public function urlEncode() : Manipulator
     {
         return new static(urlencode($this->string));
+    }
+
+    /**
+     * Return String in SnakeCase
+     * @return object|Manipulator
+     */
+    public function toSnake() : Manipulator
+    {
+        $newModified = null;
+
+        $this->string = lcfirst($this->ucAll());
+        
+        foreach (str_split($this->string, 1) as $character) {
+            $newModified .= ctype_upper($character) ? '_' . $character : $character;
+        }
+
+        $newModified = new static(mb_strtolower($newModified));
+
+        return new static($newModified->replace(' ', '_')->replace('-', '_')->replace('__', '_')->toString());
+    }
+
+    /**
+     * Returns string with each word is first letter capitalized
+     * except if it is camelCase (which is treated as one word)
+     * @return object|Manipulator
+     */
+    protected function ucAll()
+    {
+        $temp = preg_split('/(\W)/', $this->string, -1, PREG_SPLIT_DELIM_CAPTURE);
+        if (count($temp) > 1) {
+            foreach ($temp as $key => $word) {
+                $temp[$key] = ucfirst(strtolower($word));
+            }
+        }
+        return new static(join('', $temp));
     }
 }

@@ -5,7 +5,6 @@ use TheStringler\Manipulator\Manipulator as Manipulator;
 
 class Functions extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @expectedException \TypeError
      */
@@ -242,43 +241,43 @@ class Functions extends \PHPUnit_Framework_TestCase
 
     public function test_that_a_camel_case_string_is_converted_to_class_case()
     {
-		$string = Manipulator::make('className')->camelToClass();
-	    $this->assertEquals($string, 'ClassName');
+        $string = Manipulator::make('className')->camelToClass();
+        $this->assertEquals($string, 'ClassName');
     }
 
     public function test_that_each_character_is_capitalized()
     {
-	    $string = Manipulator::make('hello')->eachCharacter(function($char) {
-		    return strtoupper($char);
-	    });
-	    $this->assertEquals($string, 'HELLO');
+        $string = Manipulator::make('hello')->eachCharacter(function ($char) {
+            return strtoupper($char);
+        });
+        $this->assertEquals($string, 'HELLO');
     }
 
-	public function test_that_each_character_is_reversed_spaces_not_preserved()
-	{
-		$string = Manipulator::make('hello moto')->eachWord(function($word) {
-			return strrev($word);
-		});
-		$this->assertEquals($string, 'ollehotom');
-	}
+    public function test_that_each_character_is_reversed_spaces_not_preserved()
+    {
+        $string = Manipulator::make('hello moto')->eachWord(function ($word) {
+            return strrev($word);
+        });
+        $this->assertEquals($string, 'ollehotom');
+    }
 
-	public function test_that_each_character_is_reversed_spaces_preserved()
-	{
-		$string = Manipulator::make('hello moto')->eachWord(function($word) {
-			return strrev($word);
-		}, true);
-		$this->assertEquals($string, 'olleh otom');
-	}
+    public function test_that_each_character_is_reversed_spaces_preserved()
+    {
+        $string = Manipulator::make('hello moto')->eachWord(function ($word) {
+            return strrev($word);
+        }, true);
+        $this->assertEquals($string, 'olleh otom');
+    }
 
-	public function test_that_string_is_made_l33t()
-	{
-		$isL33t = Manipulator::make('Hack The Planet!')->toL33t()->toString();
-		$this->assertTrue(is_string($isL33t));
-	}
+    public function test_that_string_is_made_l33t()
+    {
+        $isL33t = Manipulator::make('Hack The Planet!')->toL33t()->toString();
+        $this->assertTrue(is_string($isL33t));
+    }
 
     public function test_that_nth_character_is_modified()
     {
-        $string = Manipulator::make('Wordpress')->nthCharacter(5, function($character) {
+        $string = Manipulator::make('Wordpress')->nthCharacter(5, function ($character) {
             return mb_strtoupper($character);
         });
         $this->assertEquals($string, 'WordPress');
@@ -286,9 +285,40 @@ class Functions extends \PHPUnit_Framework_TestCase
 
     public function test_that_nth_word_is_modified()
     {
-        $string = Manipulator::make('Oh hello there!')->nthWord(2, function($word) {
+        $string = Manipulator::make('Oh hello there!')->nthWord(2, function ($word) {
             return mb_strtoupper($word);
         });
         $this->assertEquals($string, 'Oh HELLO there!');
+    }
+    
+    public function test_toSnake_returns_camel_case_string_in_snake_case()
+    {
+        $string = Manipulator::make('thisIsCamelCaseString')->toSnake();
+        $this->assertEquals('this_is_camel_case_string', $string);
+    }
+
+    public function test_toSnake_one_word_capitalized_string_in_snake_case()
+    {
+        $string = Manipulator::make('This one word CAPITALIZED case')->toSnake();
+        $this->assertEquals('this_one_word_capitalized_case', $string);
+    }
+    
+    public function test_toSnake_returns_capital_case_string_in_snake_case()
+    {
+        $string = Manipulator::make('This Is Capital Case')->toSnake();
+        $this->assertEquals('this_is_capital_case', $string);
+    }
+
+
+    public function test_toSnake_returns_regular_string_in_snake_case()
+    {
+        $string = Manipulator::make('This is regular case')->toSnake();
+        $this->assertEquals('this_is_regular_case', $string);
+    }
+
+    public function test_toSnake_dash_separated_string_in_snake_case()
+    {
+        $string = Manipulator::make('This-is-dashed-case')->toSnake();
+        $this->assertEquals('this_is_dashed_case', $string);
     }
 }
