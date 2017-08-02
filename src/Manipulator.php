@@ -574,9 +574,7 @@ class Manipulator
             $newModified .= ctype_upper($character) ? '_' . $character : $character;
         }
 
-        $newModified = new static(mb_strtolower($newModified));
-
-        return new static($newModified->replace(' ', '_')->replace('-', '_')->replace('__', '_')->toString());
+        return (new static($newModified))->toLower()->replace(' ', '_')->replace('-', '_')->replace('__', '_');
     }
 
     /**
