@@ -321,4 +321,10 @@ class Functions extends \PHPUnit_Framework_TestCase
         $string = Manipulator::make('This-is-dashed-case')->toSnake();
         $this->assertEquals('this_is_dashed_case', $string);
     }
+
+    public function test_toSnake_snake_case_string_in_snake_case()
+    {
+        $string = Manipulator::make('this_is_snake_case')->toSnake();
+        $this->assertEquals('this_is_snake_case', $string);
+    }
 }
