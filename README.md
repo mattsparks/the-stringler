@@ -284,6 +284,13 @@ Manipulator::make('hello')->toUpper()->reverse();
 // OLLEH
 ```
 
+## ucAll
+
+```php
+Manipulator::make('hello my name is inigo montoya, you killed my father, prepare to die!')->ucAll();
+// Hello My Name Is Inigo Montoya, You Killed My Father, Prepare To Die!
+```
+
 ## Contribute
 Contributions are very welcome!
 

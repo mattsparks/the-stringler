@@ -582,7 +582,7 @@ class Manipulator
      * except if it is camelCase (which is treated as one word)
      * @return object|Manipulator
      */
-    protected function ucAll()
+    public function ucAll()
     {
         $temp = preg_split('/(\W)/', $this->string, -1, PREG_SPLIT_DELIM_CAPTURE);
 
@@ -593,7 +593,7 @@ class Manipulator
         foreach ($temp as $key => $word) {
             $temp[$key] = ucfirst(strtolower($word));
         }
-        
+
         return new static(join('', $temp));
     }
 }

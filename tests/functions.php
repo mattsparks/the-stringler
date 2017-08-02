@@ -327,4 +327,10 @@ class Functions extends \PHPUnit_Framework_TestCase
         $string = Manipulator::make('this_is_snake_case')->toSnake();
         $this->assertEquals('this_is_snake_case', $string);
     }
+
+    public function test_ucAll_returns_string_with_each_word_ucfirst()
+    {
+        $string = Manipulator::make('hello my name is inigo montoya, you killed my father, prepare to die!')->ucAll();
+        $this->assertEquals('Hello My Name Is Inigo Montoya, You Killed My Father, Prepare To Die!', $string);
+    }
 }
