@@ -585,11 +585,15 @@ class Manipulator
     protected function ucAll()
     {
         $temp = preg_split('/(\W)/', $this->string, -1, PREG_SPLIT_DELIM_CAPTURE);
-        if (count($temp) > 1) {
-            foreach ($temp as $key => $word) {
-                $temp[$key] = ucfirst(strtolower($word));
-            }
+
+        if (count($temp) == 1) {
+            return $this;
         }
+
+        foreach ($temp as $key => $word) {
+            $temp[$key] = ucfirst(strtolower($word));
+        }
+        
         return new static(join('', $temp));
     }
 }
