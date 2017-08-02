@@ -587,7 +587,7 @@ class Manipulator
         $temp = preg_split('/(\W)/', $this->string, -1, PREG_SPLIT_DELIM_CAPTURE);
 
         if (count($temp) == 1) {
-            return $this;
+            return self::make(ucfirst(implode('', $temp)));
         }
 
         foreach ($temp as $key => $word) {

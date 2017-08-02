@@ -291,6 +291,12 @@ Manipulator::make('hello my name is inigo montoya, you killed my father, prepare
 // Hello My Name Is Inigo Montoya, You Killed My Father, Prepare To Die!
 ```
 
+```php
+// if the string is Camel Case, the first letter should be uppercase, but it should not do anything to the rest of the string.
+Manipulator::make('aCamelCaseString')->ucAll();
+// ACamelCaseString
+```
+
 ## Contribute
 Contributions are very welcome!
 
