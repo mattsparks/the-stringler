@@ -23,6 +23,12 @@ Manipulator::make('camelCase')->camelToSnake();
 // camel_case
 ```
 
+### toSnake
+```php
+Manipulator::make('camelCase')->toSnake();
+// camel_case
+```
+
 ### camelToClass
 ```php
 Manipulator::make('className')->camelToClass();
