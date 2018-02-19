@@ -1,9 +1,10 @@
 <?php
-namespace TheStringler\Tests;
+namespace TheStringler\Manipulator\Tests;
 
 use TheStringler\Manipulator\Manipulator as Manipulator;
+use PHPUnit\Framework\TestCase;
 
-class Functions extends \PHPUnit_Framework_TestCase
+class FunctionsTest extends TestCase
 {
 
     /**
