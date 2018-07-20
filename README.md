@@ -40,6 +40,16 @@ Manipulator::make('i like toast!')->capitalizeEach();
 // I Like Toast!
 ```
 
+### custom
+```php
+Manipulator::make('Some String')->custom(function ($string) {
+    // This is just a sample, this can be achieved with existing methods,
+    // But you can do whatever string manipulation you want here.
+    return ucfirst(strtolower($string));
+});
+// Some string
+```
+
 ### eachCharacter($closure)
 ```php
 Manipulator::make('hello')->eachCharacter(function($char) {
