@@ -30,22 +30,22 @@ class Manipulator
         return $this->string;
     }
 
-	/**
-	 * Append to the string.
-	 *
-	 * @param string $string
-	 * @return object|Manipulator
-	 */
+    /**
+     * Append to the string.
+     *
+     * @param string $string
+     * @return object|Manipulator
+     */
     public function append(string $string) : Manipulator
     {
         return new static($this->string . $string);
     }
 
-	/**
-	 * Convert a camel-case string to snake-case.
-	 *
-	 * @return object|Manipulator
-	 */
+    /**
+     * Convert a camel-case string to snake-case.
+     *
+     * @return object|Manipulator
+     */
     public function camelToSnake() : Manipulator
     {
         $modifiedString = '';
@@ -57,14 +57,14 @@ class Manipulator
         return new static(mb_strtolower($modifiedString));
     }
 
-	/**
-	 * Convert a camel-case string to class-case.
-	 *
-	 * @return object|Manipulator
-	 */
+    /**
+     * Convert a camel-case string to class-case.
+     *
+     * @return object|Manipulator
+     */
     public function camelToClass() : Manipulator
     {
-	    return new static($this->capitalize()->toString());
+        return new static($this->capitalize()->toString());
     }
 
     /**
@@ -88,40 +88,49 @@ class Manipulator
         return new static(trim(mb_convert_case($this->string, MB_CASE_TITLE)));
     }
 
-	/**
-	 * Perform an action on each character in the string.
-	 *
-	 * @param $closure
-	 * @return object|Manipulator
-	 */
-    public function eachCharacter(\Closure $closure) : Manipulator
+    /**
+     * Perform a custom manipulation on the string.
+     * @return object|Manipulator
+     */
+    public function custom(callable $fn)
     {
-	    $modifiedString = '';
-
-	    foreach (str_split($this->string) as $character) {
-			$modifiedString .= $closure($character);
-		}
-
-		return new static($modifiedString);
+        return new static($fn($this->string));
     }
 
-	/**
-	 * Perform an action on each word in the string.
-	 *
-	 * @param $closure
-	 * @param bool $preserveSpaces
-	 * @return object|Manipulator
-	 */
+    /**
+     * Perform an action on each character in the string.
+     *
+     * @param $closure
+     * @return object|Manipulator
+     */
+    public function eachCharacter(\Closure $closure) : Manipulator
+    {
+        $modifiedString = '';
+
+        foreach (str_split($this->string) as $character) {
+            $modifiedString .= $closure($character);
+        }
+
+        return new static($modifiedString);
+    }
+
+    /**
+     * Perform an action on each word in the string.
+     *
+     * @param $closure
+     * @param bool $preserveSpaces
+     * @return object|Manipulator
+     */
     public function eachWord(\Closure $closure, bool $preserveSpaces = false) : Manipulator
     {
-	    $modifiedString = '';
+        $modifiedString = '';
 
-	    foreach(explode(' ', $this->string) as $word) {
-		    $modifiedString .= $closure($word);
-		    $modifiedString .= $preserveSpaces ? ' ' : '';
-	    }
+        foreach (explode(' ', $this->string) as $word) {
+            $modifiedString .= $closure($word);
+            $modifiedString .= $preserveSpaces ? ' ' : '';
+        }
 
-	    return new static(trim($modifiedString));
+        return new static(trim($modifiedString));
     }
 
     /**
@@ -133,7 +142,7 @@ class Manipulator
     {
         $modifiedString = $this->trimEnd();
 
-        if(mb_substr($modifiedString, -1) === 's') {
+        if (mb_substr($modifiedString, -1) === 's') {
             $modifiedString .= '\'';
         } else {
             $modifiedString .= '\'s';
@@ -228,10 +237,10 @@ class Manipulator
          * Optional parameter to determine if a string
          * should be pluralized.
          */
-        if(!is_null($items)) {
+        if (!is_null($items)) {
             $count = is_numeric($items) ? $items : count($items);
 
-            if($count <= 1) {
+            if ($count <= 1) {
                 return $this;
             }
         }
@@ -283,13 +292,13 @@ class Manipulator
         $count = 1;
         $modifiedString = '';
 
-	    foreach(explode(' ', $this->string) as $word) {
-		    $modifiedString .= $count === $nth ? $closure($word) : $word;
-		    $modifiedString .= $preserveSpaces ? ' ' : '';
+        foreach (explode(' ', $this->string) as $word) {
+            $modifiedString .= $count === $nth ? $closure($word) : $word;
+            $modifiedString .= $preserveSpaces ? ' ' : '';
             $count++;
-	    }
+        }
 
-	    return new static(trim($modifiedString));
+        return new static(trim($modifiedString));
     }
 
     /**
@@ -315,7 +324,7 @@ class Manipulator
         $regEx  = "/";
         $regEx .= "[^\w\d";
 
-        foreach($exceptions as $exception) {
+        foreach ($exceptions as $exception) {
             $regEx .= "\\" . $exception;
         }
 
@@ -427,16 +436,16 @@ class Manipulator
         return new static($final);
     }
 
-	/**
-	 * Make a string L33t.
-	 *
-	 * @return object|Manipulator
-	 */
+    /**
+     * Make a string L33t.
+     *
+     * @return object|Manipulator
+     */
     public function toL33t() : Manipulator
     {
-	    return new static($this->eachCharacter(function($char) {
-		    return L33t::makeItL33t($char);
-	    })->toString());
+        return new static($this->eachCharacter(function ($char) {
+            return L33t::makeItL33t($char);
+        })->toString());
     }
 
     /**
