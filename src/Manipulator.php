@@ -467,6 +467,8 @@ class Manipulator
     {
         $modifiedString = $this->toLower()
             ->replace(' ', '-')
+            ->replace('+', '-plus')
+            ->replace('#', '-sharp')
             ->removeSpecialCharacters(['-'])
             ->toString();
 

@@ -178,6 +178,15 @@ class FunctionsTest extends TestCase
         $this->assertEquals($string, 'this-is-a-slug');
     }
 
+    public function test_that_a_string_with_plus_and_sharp_is_slugged()
+    {
+        $string = Manipulator::make('C++')->toSlug();
+        $this->assertEquals($string, 'c-plus-plus');
+
+        $string = Manipulator::make('C#')->toSlug();
+        $this->assertEquals($string, 'c-sharp');
+    }
+
     public function test_that_a_string_is_truncated_and_appended_to()
     {
         $string = Manipulator::make('This is a sentence and will be truncated.')->truncate(10);
@@ -296,7 +305,7 @@ class FunctionsTest extends TestCase
     public function test_that_custom_accepts_callable_which_can_do_custom_manipulation_on_string()
     {
         $string = Manipulator::make('Oh hello there!');
-        
+
         $this->assertEquals($string->custom(function ($string) {
             return strtolower($string);
         }), 'oh hello there!');
